@@ -5,6 +5,8 @@ import com.cloud.pojo.ProductCriteria;
 import com.cloud.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.reactive.TransactionalOperator;
@@ -74,37 +76,8 @@ public class ProductHandler {
                 .switchIfEmpty(ServerResponse.notFound().build());
     }
 
-    /**
-     * 查询所有
-     *
-     * @param serverRequest
-     * @return
-     */
-    public Mono<ServerResponse> findAll(ServerRequest serverRequest) {
-        return ServerResponse.ok().body(productService.findByAll(), Product.class);
-    }
 
-    public Mono<ServerResponse> findByCategoryPage(ServerRequest serverRequest) {
-        return
-                serverRequest.bodyToMono(ProductCriteria.class)
-                        .flatMap(p -> {
-                            System.out.println("p:" + p);
-                            return ServerResponse.ok()
-                                    .body(productService.findByCategoryPage(p), Product.class);
-                        })
-                ;
-    }
 
-    public Mono<ServerResponse> findAllByPage(ServerRequest serverRequest) {
-      /*  return
-                serverRequest.bodyToMono(ProductCriteria.class)
-                        .flatMap(p -> ServerResponse.ok()
-                                .body(productService.findAllByPage(), Product.class))
-
-                ;
-*/
-        return ServerResponse.ok().body(productService.findAllByPage(), Product.class);
-    }
 
     /**
      * 更新商品

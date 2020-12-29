@@ -13,6 +13,10 @@ public class UmsRouter {
     public RouterFunction<ServerResponse> productRoute(UmsHandler umsHandler){
         return   RouterFunctions.route()
                 .POST(UmsRoutePath.register,umsHandler::register)
+                .POST(UmsRoutePath.login,umsHandler::login)
+                .GET(UmsRoutePath.getByUserName,umsHandler::findByUserName)
+                .GET(UmsRoutePath.list,umsHandler::list)
+                .POST(UmsRoutePath.getItem,umsHandler::getItem)
                 .build();
     }
 }

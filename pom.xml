@@ -8,6 +8,12 @@
         <module>reactive-stock-service</module>
         <module>reactive-product-service</module>
         <module>reactive-user-service</module>
+        <module>reactive-getway-service</module>
+        <module>reactive-order-service</module>
+        <module>reactive-search-service</module>
+        <module>reactive-sync-service</module>
+        <module>reactive-redis-service</module>
+        <module>reactive-elasticsearch-service</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -33,7 +39,16 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>4.5.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.62</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

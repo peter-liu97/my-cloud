@@ -65,21 +65,21 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    /**
-     * 查询所有商品（分页）
-     * @return
-     */
-    public Flux<Product> findAllByPage() {
-        return productRepository.findAllByPage();
-    }
-
-    /**
-     * 根据类别查询商品（分页）
-     * @return
-     */
-    public Flux<Product> findByCategoryPage(ProductCriteria productCriteria) {
-        return productRepository.findByCategory(productCriteria.getCategory(),(productCriteria.getPage()-1)*productCriteria.getPageSize(),productCriteria.getPageSize());
-    }
+//    /**
+//     * 查询所有商品（分页）
+//     * @return
+//     */
+//    public Flux<Product> findAllByPage() {
+//        return productRepository.findAllByPage();
+//    }
+//
+//    /**
+//     * 根据类别查询商品（分页）
+//     * @return
+//     */
+//    public Flux<Product> findByCategoryPage(ProductCriteria productCriteria) {
+//        return productRepository.findByCategory(productCriteria.getCategory(),(productCriteria.getPage()-1)*productCriteria.getPageSize(),productCriteria.getPageSize());
+//    }
 
     /**
      *

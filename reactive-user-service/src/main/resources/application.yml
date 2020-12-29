@@ -9,7 +9,7 @@ spring:
     nacos:
       discovery:
         server-addr: 121.199.65.11:8848  # 注册中心地址
-        cluster-name: mall #集群名称
+#        cluster-name: mall #集群名称
         metadata:
           version: v1.0
     loadbalancer:

@@ -1,0 +1,9 @@
+server:
+  port: 8889
+spring:
+  application:
+    name: reactive-redis-service
+  redis:
+    host: 121.199.65.11
+    port: 6379
+    timeout: 5000

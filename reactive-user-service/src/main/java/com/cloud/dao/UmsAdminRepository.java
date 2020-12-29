@@ -5,6 +5,7 @@ import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Repository
@@ -16,4 +17,9 @@ public interface UmsAdminRepository  extends ReactiveCrudRepository<UmsAdmin,Int
 
     @Query("select * from ums_admin where userName = :userName")
     Mono<UmsAdmin> findByUserName(String userName);
+
+    @Query("select * from ums_admin pageSize-1,pageNum")
+    Flux<UmsAdmin> findAdmin(Integer pageSize, Integer pageNum);
+
+
 }

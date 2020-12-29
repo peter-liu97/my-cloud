@@ -1,5 +1,6 @@
 package com.cloud.reactive;
 
+import com.cloud.common.CommonResult;
 import com.cloud.config.UmsRoutePath;
 import com.cloud.pojo.UmsAdmin;
 import com.cloud.service.UmsService;
@@ -21,17 +22,38 @@ public class UmsHandler {
     public Mono<ServerResponse> register(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(UmsAdmin.class)
                 .flatMap(i->umsService.register(i))
-                .flatMap(p->ServerResponse.ok().bodyValue(p))
-                .switchIfEmpty(ServerResponse.status(403).build());
+                .flatMap(p->ServerResponse.ok().bodyValue(CommonResult.success(p)))
+                .switchIfEmpty(ServerResponse.ok().bodyValue(CommonResult.failed()));
     }
 
-//    public Mono<ServerResponse> login(ServerRequest serverRequest){
-//        return serverRequest.bodyToMono(UmsAdmin.class)
-//                .flatMap(u->umsService.login(u.getUsername(),u.getPassword()))
-////                .switchIfEmpty()
-//    }
+    public Mono<ServerResponse> login(ServerRequest serverRequest){
+        return serverRequest.bodyToMono(UmsAdmin.class)
+                .flatMap(u->umsService.login(u.getUsername(),u.getPassword()))
+                .flatMap(p->ServerResponse.ok().bodyValue(CommonResult.success(p)))
+                .switchIfEmpty(ServerResponse.ok().bodyValue(CommonResult.failed()));
+    }
 
 
+    public Mono<ServerResponse> findByUserName(ServerRequest serverRequest) {
+        var userName = serverRequest.pathVariable("userName");
+        return umsService.getAdminByUsername(userName)
+                .flatMap(p->ServerResponse.ok().bodyValue(CommonResult.success(p)))
+                .switchIfEmpty(ServerResponse.ok().bodyValue(CommonResult.failed()));
+    }
 
+    public Mono<ServerResponse> list(ServerRequest serverRequest) {
+        var userName = serverRequest.pathVariable("userName");
+        return umsService.getAdminByUsername(userName)
+                .flatMap(p->ServerResponse.ok().bodyValue(CommonResult.success(p)))
+                .switchIfEmpty(ServerResponse.ok().bodyValue(CommonResult.failed()));
+    }
 
+    public Mono<ServerResponse> getItem(ServerRequest serverRequest) {
+        var id = serverRequest.pathVariable("id");
+        var size = serverRequest.pathVariable("pageSize");
+        var num = serverRequest.pathVariable("pageNum");
+        var pageSize = Integer.parseInt(size.isEmpty()?"5":size);
+        var pageNum = Integer.parseInt(num.isEmpty()?"1":num);
+        return null;
+    }
 }
