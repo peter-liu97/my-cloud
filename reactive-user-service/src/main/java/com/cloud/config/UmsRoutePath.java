@@ -17,4 +17,5 @@ public class UmsRoutePath {
     public static final String getRoleList = root + "/role/{adminId}";
     public static final String updatePermission = root + "/permission/update";
     public static final String getPermissionList = root + "/permission/{adminId}";
+    public static final String findAll = root + "/findAll";
 }

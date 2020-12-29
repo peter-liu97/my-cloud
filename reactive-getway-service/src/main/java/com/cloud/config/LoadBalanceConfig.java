@@ -7,7 +7,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class LoadBalanceConfig {
-    @Bean(name = "loadBalancedUserService")
+
+
+    @Bean(name = "loadBalancedUserAdminClientBuilder")
     @LoadBalanced
     public WebClient.Builder loadBalancedWebClientBuilder() {
         return WebClient.builder().baseUrl("http://reative-user-service");

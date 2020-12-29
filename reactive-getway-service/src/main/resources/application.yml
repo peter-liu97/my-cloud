@@ -29,6 +29,25 @@ spring:
                 redis-rate-limiter.replenishRate: 10
                 redis-rate-limiter.burstCapacity: 20
                 redis-rate-limiter.requestedTokens: 1
+        - id: elasticsearch-service
+          uri: lb://reactive-elasticsearch-service
+            #          断言配置
+          predicates:
+            - Path=/elasticsearch/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
+                fallbackUri: forward:/fallback
+              #            - RewritePath=/consumingServiceEndpoint, /backingServiceEndpoint
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                redis-rate-limiter.requestedTokens: 1
+
+
+
   redis:
     host: 121.199.65.11
     port: 6379

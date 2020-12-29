@@ -2,7 +2,7 @@ package com.mycloud.reactive;
 
 public class ElasticsearchRoutePath {
 
-    public static final  String root="/product";
+    public static final  String root="/elasticsearch/product";
 
     public static final  String save=root+"/save";
 

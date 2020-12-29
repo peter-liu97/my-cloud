@@ -17,6 +17,8 @@ public class UmsRouter {
                 .GET(UmsRoutePath.getByUserName,umsHandler::findByUserName)
                 .GET(UmsRoutePath.list,umsHandler::list)
                 .POST(UmsRoutePath.getItem,umsHandler::getItem)
+                .GET(UmsRoutePath.findAll,umsHandler::findAll)
+                .GET(UmsRoutePath.getPermissionList,umsHandler::getPermissionList)
                 .build();
     }
 }

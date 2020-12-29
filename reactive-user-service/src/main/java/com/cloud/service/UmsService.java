@@ -2,8 +2,10 @@ package com.cloud.service;
 
 
 import com.cloud.common.CommonPage;
+import com.cloud.dao.UmsAdminDbClient;
 import com.cloud.dao.UmsAdminRepository;
 import com.cloud.pojo.UmsAdmin;
+import com.cloud.pojo.UmsPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,9 @@ import java.util.Map;
 public class UmsService {
     @Autowired
     private UmsAdminRepository umsAdminRepository;
+
+    @Autowired
+    private UmsAdminDbClient umsAdminDbClient;
 
     @Qualifier("passwordEncoder")
     @Autowired
@@ -72,5 +77,13 @@ public class UmsService {
         }
 
         return umsAdminRepository.findAdmin(pageSize*pageNum-1,pageNum);
+    }
+
+    public Flux<UmsPermission> getPermissionList(Long adminId) {
+        return umsAdminDbClient.getPermissionList(adminId);
+    }
+
+    public Flux<UmsAdmin> findAll() {
+        return umsAdminRepository.findAll();
     }
 }

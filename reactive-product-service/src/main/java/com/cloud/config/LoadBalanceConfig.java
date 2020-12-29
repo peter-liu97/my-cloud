@@ -7,7 +7,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class LoadBalanceConfig {
-    @Bean(name = "loadBalancedWebClientBuilder")
+    @Bean(name = "loadBalancedUserClientBuilder")
     @LoadBalanced
     public WebClient.Builder loadBalancedWebClientBuilder() {
         return WebClient.builder().baseUrl("http://reative-stock-service");

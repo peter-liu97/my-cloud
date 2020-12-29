@@ -3,6 +3,7 @@ package com.cloud.reactive;
 import com.cloud.common.CommonResult;
 import com.cloud.config.UmsRoutePath;
 import com.cloud.pojo.UmsAdmin;
+import com.cloud.pojo.UmsPermission;
 import com.cloud.service.UmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -55,5 +56,15 @@ public class UmsHandler {
         var pageSize = Integer.parseInt(size.isEmpty()?"5":size);
         var pageNum = Integer.parseInt(num.isEmpty()?"1":num);
         return null;
+    }
+
+    public Mono<ServerResponse> getPermissionList(ServerRequest serverRequest) {
+        Long adminId = Long.parseLong(serverRequest.pathVariable("adminId"));
+        return ServerResponse.ok().body( umsService.getPermissionList(adminId),UmsPermission.class);
+    }
+
+
+    public Mono<ServerResponse> findAll(ServerRequest serverRequest) {
+        return ServerResponse.ok().body(umsService.findAll(),UmsAdmin.class);
     }
 }
