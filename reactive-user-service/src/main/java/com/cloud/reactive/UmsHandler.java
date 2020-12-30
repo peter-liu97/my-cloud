@@ -38,8 +38,7 @@ public class UmsHandler {
     public Mono<ServerResponse> findByUserName(ServerRequest serverRequest) {
         var userName = serverRequest.pathVariable("userName");
         return umsService.getAdminByUsername(userName)
-                .flatMap(p->ServerResponse.ok().bodyValue(CommonResult.success(p)))
-                .switchIfEmpty(ServerResponse.ok().bodyValue(CommonResult.failed()));
+                .flatMap(p->ServerResponse.ok().bodyValue(p));
     }
 
     public Mono<ServerResponse> list(ServerRequest serverRequest) {

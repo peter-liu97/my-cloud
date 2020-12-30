@@ -52,3 +52,7 @@ spring:
     host: 121.199.65.11
     port: 6379
     timeout: 5000
+  r2dbc:
+    url: r2dbc:mysql://121.199.65.11:3306/mall
+    username: root
+    password: 970210Lsm

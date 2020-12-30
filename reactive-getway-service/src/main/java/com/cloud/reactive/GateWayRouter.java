@@ -12,6 +12,7 @@ public class GateWayRouter {
     public RouterFunction<ServerResponse> productRoute(GateWayHandler gateWayHandler){
         return   RouterFunctions.route()
                 .POST("/fallback",gateWayHandler::fallback)
+                .GET("/testLoadBalance",gateWayHandler::testLoadBalance)
                 .build();
     }
 }

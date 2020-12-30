@@ -1,7 +1,12 @@
 package com.cloud.reactive;
 
 
+import com.cloud.pojo.UmsAdmin;
+import com.cloud.security.AdminUserDetails;
+import com.cloud.service.GateWayService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -12,13 +17,19 @@ import javax.swing.*;
 @Component
 public class GateWayHandler {
 
+    @Autowired
+    GateWayService gateWayService;
 
     public Mono<ServerResponse> fallback(ServerRequest serverRequest) {
-        return ServerResponse.ok().bodyValue(new Result("网络异常",500));
+        return ServerResponse.ok().bodyValue(new Result("网络异常", 500));
+    }
+    public Mono<ServerResponse> testLoadBalance(ServerRequest serverRequest) {
+        return  ServerResponse.ok().body(gateWayService.testLoadBalance("admin"), UserDetails.class);
     }
 
 
-    class Result{
+
+    class Result {
         String mag;
         Integer code;
 
