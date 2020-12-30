@@ -9,19 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-
-/**
- * @Description: JwtToken生成的工具类
- * @Author: 伯乐
- * @Date: 2019/5/17 16:14
- */
-
-
 /**
  * JwtToken生成的工具类
  * JWT token的格式：header.payload.signature
@@ -31,8 +23,8 @@ import java.util.Map;
  * {"sub":"wang","created":1489079981393,"exp":1489684781}
  * signature的生成算法：
  * HMACSHA512(base64UrlEncode(header) + "." +base64UrlEncode(payload),secret)
- * Created on 2019/4/26.
  */
+@Component
 public class JwtTokenUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
     private static final String CLAIM_KEY_USERNAME = "user_name";

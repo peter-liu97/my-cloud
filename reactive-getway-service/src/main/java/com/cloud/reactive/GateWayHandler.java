@@ -23,9 +23,9 @@ public class GateWayHandler {
     public Mono<ServerResponse> fallback(ServerRequest serverRequest) {
         return ServerResponse.ok().bodyValue(new Result("网络异常", 500));
     }
-    public Mono<ServerResponse> testLoadBalance(ServerRequest serverRequest) {
-        return  ServerResponse.ok().body(gateWayService.testLoadBalance("admin"), UserDetails.class);
-    }
+//    public Mono<ServerResponse> testLoadBalance(ServerRequest serverRequest) {
+//        return  ServerResponse.ok().body(gateWayService.testLoadBalance("admin"), UserDetails.class);
+//    }
 
 
 

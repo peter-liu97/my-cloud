@@ -15,7 +15,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -26,18 +28,18 @@ public class GateWayService {
     WebClient.Builder builder;
 
 
+    public UserDetails getUserDetails(String userName) {
 
-    public Mono<  UserDetails > testLoadBalance(String userName) {
         return builder.build()
-                .get().uri("/admin/getByUserName/{userName}",userName)
+                .get().uri("/admin/getByUserName/{userName}", userName)
                 .retrieve().bodyToMono(UmsAdmin.class)
-                .flatMap(user ->{
-                  return   builder.build().get().uri("/admin/permission/{adminId}", user.getId())
-                                .retrieve().bodyToFlux(UmsPermission.class)
-                                .collectList()
-                                .flatMap(list ->{
-                                   return  Mono.just(new AdminUserDetails(user, list));
-                                });
-                });
+                .flatMap(user -> {
+                    return builder.build().get().uri("/admin/permission/{adminId}", user.getId())
+                            .retrieve().bodyToFlux(UmsPermission.class)
+                            .collectList()
+                            .flatMap(list -> {
+                                return Mono.just(new AdminUserDetails(user, list));
+                            });
+                }).block();
     }
 }
