@@ -1,8 +1,6 @@
 package com.cloud.reactive;
 
 
-import com.cloud.pojo.UmsAdmin;
-import com.cloud.security.AdminUserDetails;
 import com.cloud.service.GateWayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
@@ -11,8 +9,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
-
-import javax.swing.*;
 
 @Component
 public class GateWayHandler {

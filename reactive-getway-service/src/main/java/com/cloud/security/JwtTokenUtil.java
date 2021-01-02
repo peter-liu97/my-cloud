@@ -8,12 +8,19 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+
+/**
+ * @Description: JwtToken生成的工具类
+ * @Author: 伯乐
+ * @Date: 2019/5/17 16:14
+ */
+
+
 /**
  * JwtToken生成的工具类
  * JWT token的格式：header.payload.signature
@@ -23,8 +30,8 @@ import java.util.Map;
  * {"sub":"wang","created":1489079981393,"exp":1489684781}
  * signature的生成算法：
  * HMACSHA512(base64UrlEncode(header) + "." +base64UrlEncode(payload),secret)
+ * Created on 2019/4/26.
  */
-@Component
 public class JwtTokenUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
     private static final String CLAIM_KEY_USERNAME = "user_name";
@@ -88,11 +95,10 @@ public class JwtTokenUtil {
      * 验证token是否还有效
      *
      * @param token       客户端传入的token
-     * @param userDetails 从数据库中查询出来的用户信息
      */
-    public boolean validateToken(String token, UserDetails userDetails) {
+    public boolean validateToken(String token, String userN) {
         String username = getUserNameFromToken(token);
-        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+        return username.equals(userN) && !isTokenExpired(token);
     }
 
     /**
@@ -114,9 +120,9 @@ public class JwtTokenUtil {
     /**
      * 根据用户信息生成token
      */
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(String userName) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
+        claims.put(CLAIM_KEY_USERNAME, userName);
         claims.put(CLAIM_KEY_CREATED, new Date());
         return generateToken(claims);
     }
