@@ -54,7 +54,7 @@ public class AuthService {
     //查询令牌的有效期
     public long getExpire(String access_token) {
         //key
-        String key = "user_token:" + access_token;
+        String key = access_token;
         Long expire = stringRedisTemplate.getExpire(key, TimeUnit.SECONDS);
         return expire;
     }

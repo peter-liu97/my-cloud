@@ -15,6 +15,14 @@ public class RedisRouter {
                 .POST("/save",redisHandler::save)
                 .GET("/hashSave",redisHandler::hashSave)
                 .GET("/hashGet",redisHandler::hashGet)
+                .GET("/saveTTLNode",redisHandler::saveTTLNode)
+                .GET("/getTTLNode",redisHandler::getTTLNode)
+                .GET("/savekeyAndValue/{key}/{value}",redisHandler::savekeyAndValue)
+                .POST("/savePerson",redisHandler::savePerson)
+                .GET("/getPerson/{id}",redisHandler::getPerson)
+                .POST("/setTtlNode",redisHandler::setTtlNode)
+                .GET("/getTtlTime/{key}",redisHandler::getTtlTime)
+                .POST("/ttlRenew",redisHandler::ttlRenew)
                 .build();
     }
 }

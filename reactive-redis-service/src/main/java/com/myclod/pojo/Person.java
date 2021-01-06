@@ -17,6 +17,10 @@ package com.myclod.pojo;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
+
+import java.io.Serializable;
 
 /**
  * Example value object.
@@ -24,10 +28,12 @@ import lombok.RequiredArgsConstructor;
  * @author Mark Paluch
  */
 @Data
+@RedisHash("people")
 @RequiredArgsConstructor
-public class Person {
+public class Person  {
 
-    long id;
+    @Id
+    String id;
     String firstname;
     String lastname;
 }

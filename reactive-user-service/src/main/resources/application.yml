@@ -12,6 +12,44 @@ spring:
 #        cluster-name: mall #集群名称
         metadata:
           version: v1.0
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+      routes:
+        - id: admin-service
+          uri: lb://reative-user-service
+          #          断言配置
+          predicates:
+            - Path=/admin/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
+                fallbackUri: forward:/fallback
+            #            - RewritePath=/consumingServiceEndpoint, /backingServiceEndpoint
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                redis-rate-limiter.requestedTokens: 1
+        - id: elasticsearch-service
+          uri: lb://reactive-elasticsearch-service
+          #          断言配置
+          predicates:
+            - Path=/elasticsearch/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
+                fallbackUri: forward:/fallback
+              #            - RewritePath=/consumingServiceEndpoint, /backingServiceEndpoint
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                redis-rate-limiter.requestedTokens: 1
     loadbalancer:
       ribbon:
         enabled: false
@@ -20,4 +58,13 @@ spring:
     url: r2dbc:mysql://121.199.65.11:3306/mall
     username: root
     password: 970210Lsm
+  redis:
+    host: 121.199.65.11
+    port: 6379
+    timeout: 5000
 
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: mall-admin-secret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24)
+  tokenHead: Bearer  #JWT负载中拿到开头

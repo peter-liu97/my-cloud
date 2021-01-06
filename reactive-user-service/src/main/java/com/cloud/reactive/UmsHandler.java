@@ -30,8 +30,8 @@ public class UmsHandler {
     public Mono<ServerResponse> login(ServerRequest serverRequest){
         return serverRequest.bodyToMono(UmsAdmin.class)
                 .flatMap(u->umsService.login(u.getUsername(),u.getPassword()))
-                .flatMap(p->ServerResponse.ok().bodyValue(CommonResult.success(p)))
-                .switchIfEmpty(ServerResponse.ok().bodyValue(CommonResult.failed()));
+                .flatMap(p->ServerResponse.ok().bodyValue(p))
+                .switchIfEmpty(ServerResponse.ok().bodyValue(CommonResult.failed("用户名不存在")));
     }
 
 
